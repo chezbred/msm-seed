@@ -223,21 +223,20 @@ static int tz_get_target_freq(struct devfreq *devfreq, unsigned long *freq,
 		scm_data[0] = level;
 		scm_data[1] = priv->bin.total_time;
 		scm_data[2] = priv->bin.busy_time;
+<<<<<<< HEAD
 		__secure_tz_update_entry3(scm_data, sizeof(scm_data),
 					&val, sizeof(val), priv->is_64);
+=======
+>>>>>>> 66673b1... fix derps
 #ifdef CONFIG_SIMPLE_GPU_ALGORITHM
 		if (simple_gpu_active != 0)
 			val = simple_gpu_algorithm(level, priv);
 		else
-			val = __secure_tz_entry3(TZ_UPDATE_ID,
-					level,
-					priv->bin.total_time,
-					priv->bin.busy_time);
-#else	
-	val = __secure_tz_entry3(TZ_UPDATE_ID,
-				level,
-				priv->bin.total_time,
-				priv->bin.busy_time);
+			__secure_tz_update_entry3(scm_data, sizeof(scm_data),
+					&val, sizeof(val), priv->is_64);
+#else
+	__secure_tz_update_entry3(scm_data, sizeof(scm_data),
+				&val, sizeof(val), priv->is_64);
 #endif
 	}
 	priv->bin.total_time = 0;
