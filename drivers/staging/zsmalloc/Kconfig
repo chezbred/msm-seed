@@ -8,3 +8,7 @@ config ZSMALLOC
 	  non-standard allocator interface where a handle, not a pointer, is
 	  returned by an alloc().  This handle must be mapped in order to
 	  access the allocated space.
+
+config PGTABLE_MAPPING
+ 	bool "Use page table mapping to access object in zsmalloc"
+ 	depends on ZSMALLOC
